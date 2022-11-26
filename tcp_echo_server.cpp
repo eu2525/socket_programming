@@ -20,7 +20,7 @@ int main()
 		return -1;
 	}
 	//socket()
-	SOCKET listeningSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP); // 3¹ø Â° ÀÎÀÚ 0µµ OK
+	SOCKET listeningSock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP); // 3ë²ˆ ì§¸ ì¸ì 0ë„ OK
 	if (listeningSock == INVALID_SOCKET)
 	{
 		cerr << "Can't create a socket! Quitting" << endl;
@@ -28,7 +28,7 @@ int main()
 		return -1;
 	}
 	//bind()
-	SOCKADDR_IN hint = {}; //ÃÊ±âÈ­ ±ÇÀå»çÇ×
+	SOCKADDR_IN hint = {}; //ì´ˆê¸°í™” ê¶Œì¥ì‚¬í•­
  	hint.sin_family = AF_INET;
 	hint.sin_port = htons(SERVER_PORT);
 	hint.sin_addr.S_un.S_addr = inet_addr("127.0.0.1");
@@ -55,7 +55,7 @@ int main()
 	SOCKADDR_IN ClientSockInfo = {}; 
 	int clientSize = sizeof(ClientSockInfo);
 
-	// connection queueÀÇ °¡Àå ¾Õ¿¡ ÀÖ´Â Å¬¶óÀÌ¾ğÆ® ¿äÃ»À» acceptÇÏ°í, client ¼ÒÄÏÀ» ¹İÈ¯ÇÕ´Ï´Ù.
+	// connection queueì˜ ê°€ì¥ ì•ì— ìˆëŠ” í´ë¼ì´ì–¸íŠ¸ ìš”ì²­ì„ acceptí•˜ê³ , client ì†Œì¼“ì„ ë°˜í™˜í•©ë‹ˆë‹¤.
 	SOCKET clientSocket = accept(listeningSock, reinterpret_cast<sockaddr*>(&ClientSockInfo), &clientSize);
 	if (clientSocket == INVALID_SOCKET)
 	{
@@ -65,7 +65,7 @@ int main()
 		return -1;
 	}
 	in_addr in = ClientSockInfo.sin_addr;
-	cout << "> client connected by IP address " << inet_ntoa(in) << " with Port nubmer" << ClientSockInfo.sin_port << endl;
+	cout << "> client connected by IP address " << inet_ntoa(in) << " with Port number" << ClientSockInfo.sin_port << endl;
 
 	while (TRUE)
 	{
@@ -76,7 +76,7 @@ int main()
 		cout << "> echoed: " << buf << endl;
 
 		send(clientSocket, buf, strlen(buf), 0);
-		//(sendÇÏ´Â ¼ÒÄÏ, ¹öÆÛ¿¡ ´ëÇÑ Æ÷ÀÎÅÍ, ±æÀÌ, È£Ãâ¹æ¹ıÁöÁ¤) .
+		//(sendí•˜ëŠ” ì†Œì¼“, ë²„í¼ì— ëŒ€í•œ í¬ì¸í„°, ê¸¸ì´, í˜¸ì¶œë°©ë²•ì§€ì •) .
 
 		if (strcmp(buf, "quit") == 0)
 			break;
