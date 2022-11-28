@@ -13,7 +13,7 @@ int main() {
 
     SOCKADDR_IN m_ClientInfo;
 
-    WSADATA wsa; // Winsock µ•¿Ã≈Õ ±∏¡∂√º
+    WSADATA wsa; // Winsock Îç∞Ïù¥ÌÑ∞ Íµ¨Ï°∞Ï≤¥
 
     int retVal = 0;
     int nRecvLen = 0;
@@ -21,14 +21,14 @@ int main() {
 
     cout << "> echo-server is activated" << endl;
 
-    //WS2_32.DLL √ ±‚»≠ 
+    //WS2_32.DLL Ï¥àÍ∏∞Ìôî 
     if (WSAStartup(MAKEWORD(2, 2), &wsa) == SOCKET_ERROR)
     {
         WSACleanup();
         return -1;
     }
 
-    // UDP Socket ª˝º∫ (SOCK_DGRAM : UDP)    
+    // UDP Socket ÏÉùÏÑ± (SOCK_DGRAM : UDP)    
     SOCKET m_ServerSocket;
     m_ServerSocket = socket(AF_INET, SOCK_DGRAM, 0);
 
@@ -45,12 +45,11 @@ int main() {
     int nClient_Size = sizeof(m_ClientInfo);
 
     while (true)
-    { // Recv ¥Î±‚. Send«— Client ¡§∫∏ ¿˙¿Â 
+    { // Recv ÎåÄÍ∏∞. SendÌïú Client Ï†ïÎ≥¥ Ï†ÄÏû• 
         nRecvLen = recvfrom(m_ServerSocket, reinterpret_cast<char*>(Buffer), 1024, 0, (SOCKADDR*)&m_ClientInfo, &nClient_Size);
 
         if (nRecvLen > 0)
         {
-            cout << "> Received from [ ADDR: " << inet_ntoa(m_ClientInfo.sin_addr) << ", PORT: " << ntohs(m_ClientInfo.sin_port) << " ]" << endl;
             cout << "> echoed: " << Buffer << endl;
 
             sendto(m_ServerSocket, Buffer, strlen(Buffer), 0, (sockaddr*)&m_ClientInfo, sizeof(SOCKADDR_IN));
@@ -66,5 +65,4 @@ int main() {
 
     cout << "> echo-server is de-activated" << endl;
     return 0;
-
 }
