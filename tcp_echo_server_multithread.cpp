@@ -75,7 +75,7 @@ int main()
 			int size = sizeof(address);
 			SOCKET client = accept(sockets[idx], (sockaddr*)&address, &size);
 			
-			cout << "> client connected by IP address " << inet_ntoa(address.sin_addr) << " with Port number" << address.sin_port << endl;
+			cout << "> client connected by IP address " << inet_ntoa(address.sin_addr) << " with Port nubmer" << address.sin_port << endl;
 
 
 			WSAEVENT cEvt = WSACreateEvent();
@@ -87,8 +87,8 @@ int main()
 		}
 		//recv와 send------------------------
 		if (networkEvents.lNetworkEvents & FD_READ) {
-			char buffer[128];
-			int readBytes = recv(sockets[idx], buffer, 128, 0);
+			char buffer[1024];
+			int readBytes = recv(sockets[idx], buffer, 1024, 0);
 			if (readBytes > 0)
 			{
 				cout << "> echoed: " << buffer << " by Thread-" << sockets[idx] << endl;
